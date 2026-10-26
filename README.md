@@ -56,3 +56,22 @@ npm run dev
 3. Review WhatsApp messages, camera feeds, and physical clues
 4. Select your suspect and submit your accusation
 5. See if you cracked the case!
+
+## Deploy with Render and MongoDB Atlas
+
+The application deploys as two Render services:
+
+1. Create a MongoDB Atlas free database and allow network access from `0.0.0.0/0`.
+2. Create a Render **Web Service** from this repository:
+   - Root directory: `server`
+   - Build command: `npm install`
+   - Start command: `npm start`
+   - Environment variables: `MONGODB_URI`, `GEMINI_API_KEY`, and `CLIENT_ORIGIN`
+3. Create a Render **Static Site** from this repository:
+   - Root directory: `client`
+   - Build command: `npm install && npm run build`
+   - Publish directory: `dist`
+   - Environment variable: `VITE_API_URL=https://YOUR-BACKEND.onrender.com/api`
+4. Replace the backend `CLIENT_ORIGIN` value with the final Render static-site URL and redeploy the backend.
+
+Keep `server/.env` local. Add production secrets in Render's environment-variable settings, not in Git.
